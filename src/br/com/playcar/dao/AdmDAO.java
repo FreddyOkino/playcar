@@ -36,7 +36,7 @@ public class AdmDAO {
             ResultSet rs = stmt.executeQuery();
             //usuario logou
             if (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Seja bem viado ao sistema");
+                JOptionPane.showMessageDialog(null, "Seja bem vindo ao sistema");
                 FRMenu tela =  new FRMenu(); 
                 tela.setVisible(true);
                 

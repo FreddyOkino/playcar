@@ -88,8 +88,6 @@ public class FRagendamento extends javax.swing.JFrame {
 
             for (Agendamento f : lista) {
                 dados.addRow(new Object[]{
-                   
-                    
                     f.getData_agendamento(),
                     f.getCarro_id(),
                     f.getBuscar(),
@@ -409,11 +407,11 @@ public class FRagendamento extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel12)
-                                .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -723,7 +721,7 @@ public class FRagendamento extends javax.swing.JFrame {
 
             String dataFormatada = formatador.format(data);
             JOptionPane.showMessageDialog(null, "Data adicionada com sucesso");
-            System.out.println(dataFormatada);
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao adicionar data");
 
@@ -828,6 +826,36 @@ public class FRagendamento extends javax.swing.JFrame {
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
         // TODO add your handling code here:
+        try {
+            Date data = campoData.getDate();
+            SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+            String dataFormatada = formatador.format(data);
+
+            Agendamento obj = new Agendamento();
+            obj.setId(Integer.parseInt(txtID1.getText()));
+            obj.setData_agendamento(dataFormatada);
+            obj.setTipo(txtTipo.getSelectedItem().toString());
+            obj.setCliente_id(Integer.parseInt(txtID.getText()));
+            obj.setCarro_id(txtCarro.getSelectedItem().toString());
+            obj.setBuscar(txtBuscar.getSelectedItem().toString());
+            obj.setEndereco_id(txtEndereco.getSelectedItem().toString());
+            obj.setResponsavel_id(txtResponsavel.getSelectedItem().toString());
+            obj.setNomeCliente(txtCliente.getText());
+
+            AgendamentoDAO dao = new AgendamentoDAO();
+            dao.editarAgentamento(obj);
+            new Utilitarios().LimparTela(jPanel2);
+
+            campoData.setDate(null);
+            txtTipo.setSelectedItem("Semi");
+            txtCarro.setSelectedItem(null);
+            txtBuscar.setSelectedItem("Não");
+            txtEndereco.setSelectedItem(null);
+            txtResponsavel.setSelectedItem(null);
+            DefaultTableModel dados = (DefaultTableModel) testetabela.getModel();
+            dados.setNumRows(0);
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btneditarActionPerformed
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed

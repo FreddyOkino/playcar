@@ -118,4 +118,28 @@ public class AgendamentoDAO {
         }
     }
     
+    public void editarAgentamento(Agendamento obj){
+        try {
+            String sql = "update agendamentos set data_agendamento=?, tipo=?, cliente_id=?, carro_id=?, buscar=?, endereco_id=?, responsavel_id=?, nomecliente=? where id=?";
+            try(PreparedStatement stmt = con.prepareStatement(sql)){
+                stmt.setString(1, obj.getData_agendamento());
+                stmt.setString(2, obj.getTipo());
+                stmt.setInt(3, obj.getCliente_id());
+                stmt.setString(4, obj.getCarro_id());
+                stmt.setString(5, obj.getBuscar());
+                stmt.setString(6, obj.getEndereco_id());
+                stmt.setString(7, obj.getResponsavel_id());
+                stmt.setString(8, obj.getNomeCliente());
+                stmt.setInt(9, obj.getId());
+                stmt.execute();
+                stmt.close();
+                
+            }
+            JOptionPane.showMessageDialog(null, "Agendamento alterado com sucesso");
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar agendamento");
+        }
+    }
+    
 }
